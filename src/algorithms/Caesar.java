@@ -31,7 +31,7 @@ public class Caesar implements Cipher {
         char[] buffer = message.toLowerCase().toCharArray();
 
         if (!Character.isDigit(password.charAt(0))) {
-            return "La clave debe ser un numero";
+            return "La clave debe ser un numero natural";
         }
 
         int key = Integer.valueOf(password);
