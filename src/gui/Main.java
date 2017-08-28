@@ -8,6 +8,9 @@ package gui;
 import algorithms.AlgorithmFactory;
 import algorithms.Cipher;
 import controller.Context;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +51,7 @@ public class Main extends javax.swing.JFrame {
         resultField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         exitBtn = new javax.swing.JButton();
+        decryptBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cifradores - Caesar y Vigenere");
@@ -69,6 +73,7 @@ public class Main extends javax.swing.JFrame {
         jLabel3.setText("Seleccione el algoritmo a utilizar:");
 
         algorithmBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Caesar", "Vigenere" }));
+        algorithmBox.setToolTipText("Seleccione el algoritmo de cifrado");
 
         decodeBtn.setMnemonic('d');
         decodeBtn.setText("Decifrar");
@@ -78,15 +83,23 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        resultField.setEditable(false);
-
         jLabel4.setText("Resultado:");
 
         exitBtn.setMnemonic('s');
         exitBtn.setText("Salir");
+        exitBtn.setToolTipText("Termina la ejecucion");
         exitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitBtnActionPerformed(evt);
+            }
+        });
+
+        decryptBtn.setMnemonic('f');
+        decryptBtn.setText("Forzar");
+        decryptBtn.setToolTipText("Decodifica utilizando la fuerza bruta");
+        decryptBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decryptBtnActionPerformed(evt);
             }
         });
 
@@ -99,6 +112,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(resultField, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(decryptBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +161,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(exitBtn)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(resultField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(resultField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(decryptBtn)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -195,6 +211,27 @@ public class Main extends javax.swing.JFrame {
         resultField.setText(resultFromDecode);
     }//GEN-LAST:event_decodeBtnActionPerformed
 
+    private void decryptBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptBtnActionPerformed
+        Cipher algorithm = AlgorithmFactory.getAlgorithm("Caesar");
+
+        if (algorithm == null) {
+            JOptionPane.showMessageDialog(null, "El algoritmo no esta implementado", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        context.setAlgorithm(algorithm);
+        String found = context.decrypt(resultField.getText().trim());
+        JOptionPane.showMessageDialog(null, found, "", JOptionPane.INFORMATION_MESSAGE);
+
+        try {
+            File path = new File(constants.Constants.LOG_FILE);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "El archivo no pudo ser abierto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_decryptBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -224,6 +261,7 @@ public class Main extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Main().setVisible(true);
             }
@@ -234,6 +272,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> algorithmBox;
     private javax.swing.JButton codeBtn;
     private javax.swing.JButton decodeBtn;
+    private javax.swing.JButton decryptBtn;
     private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

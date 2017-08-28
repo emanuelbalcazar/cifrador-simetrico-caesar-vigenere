@@ -36,6 +36,8 @@
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="resultField" min="-2" pref="265" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="decryptBtn" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="exitBtn" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
@@ -93,7 +95,10 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="exitBtn" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="resultField" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="resultField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="decryptBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="37" max="32767" attributes="0"/>
           </Group>
@@ -137,6 +142,7 @@
             <StringItem index="1" value="Vigenere"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Seleccione el algoritmo de cifrado"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -154,9 +160,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="resultField">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -167,9 +170,20 @@
       <Properties>
         <Property name="mnemonic" type="int" value="115"/>
         <Property name="text" type="java.lang.String" value="Salir"/>
+        <Property name="toolTipText" type="java.lang.String" value="Termina la ejecucion"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="decryptBtn">
+      <Properties>
+        <Property name="mnemonic" type="int" value="102"/>
+        <Property name="text" type="java.lang.String" value="Forzar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Decodifica utilizando la fuerza bruta"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decryptBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

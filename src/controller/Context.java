@@ -1,6 +1,7 @@
 package controller;
 
 import algorithms.Cipher;
+import decrypting.BruteForce;
 
 /**
  * Clase encargada de manipular el algoritmo de cifrado a ejecutar.
@@ -11,9 +12,10 @@ import algorithms.Cipher;
 public class Context {
     
     private Cipher algorithm;
+    private final BruteForce bruteForce = BruteForce.getInstance();
     
     public Context() {
-        
+       
     }
     
     /**
@@ -42,5 +44,17 @@ public class Context {
      */
     public String decode(String password, String message) {
         return algorithm.decode(password, message);
+    }
+    
+    /**
+     * Desencripta un mensaje utilizando algun algoritmo de desencriptacion
+     * recibido.
+     * 
+     * @param message mensaje encriptado a decifrar.
+     * @return 
+     */
+    public String decrypt(String message) {
+        bruteForce.setAlgorithm(algorithm);
+        return bruteForce.decrypt(message);
     }
 }

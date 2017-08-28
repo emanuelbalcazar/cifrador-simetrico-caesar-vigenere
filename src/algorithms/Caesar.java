@@ -1,5 +1,7 @@
 package algorithms;
 
+import constants.Constants;
+
 /**
  * Cifrado Caesar. Consiste en desplazar las letras del texto original un numero
  * fijo de posiciones hacia adelante para obtener un texto completamente
@@ -10,7 +12,7 @@ package algorithms;
 public class Caesar implements Cipher {
 
     // Cantidad de letras del abecedario. No contempla la letra (ñ). 
-    private final int ALPHABET = 26;
+    private final int ALPHABET = Constants.ALPHABET_LENGTH;
 
     // No codifico ni decodifico los espacios.
     private final String SPACE = " ";

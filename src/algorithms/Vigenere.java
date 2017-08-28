@@ -1,14 +1,18 @@
 package algorithms;
 
+import constants.Constants;
+
 /**
- * Cifrado Vigenere
- *
+ * Cifrador Vigenere.
+ * Similar al cifrador Caesar con la diferencia que utiliza como desplazamiento
+ * cada letra de la contraseña utilizada, el desplazamiento ya no es fijo.
+ * 
  * @author emanuel
  */
 public class Vigenere implements Cipher {
 
     // Cantidad de letras del abecedario. No contempla la letra (ñ). 
-    private final int ALPHABET = 26;
+    private final int ALPHABET = Constants.ALPHABET_LENGTH;
 
     // No codifico ni decodifico los espacios.
     private final String SPACE = " ";
@@ -95,7 +99,7 @@ public class Vigenere implements Cipher {
      *
      * @param password clave.
      * @param length longitud del mensaje.
-     * @return clave concatenada sucesivamente.
+     * @return clave concatenada sucesivamente. 
      */
     private char[] getKey(String password, int length) {
 
