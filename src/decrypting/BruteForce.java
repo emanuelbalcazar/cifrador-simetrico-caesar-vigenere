@@ -20,10 +20,9 @@ public class BruteForce {
 
     private final LoggerWrapper logger = LoggerWrapper.getInstance();
     private final FileLoader loader;
-    private final Set<String> filedata; 
+    private final Set<String> filedata;
     private Cipher algorithm;
 
-    
     private BruteForce() {
         this.loader = new FileLoader();
         this.filedata = loader.load(WORDS_FILE);
@@ -42,23 +41,30 @@ public class BruteForce {
      * Desencripta el mensaje a fuerza bruta.
      *
      * @param message mensaje codificado.
-     * @return la palabra decifrada en caso de identificarse.
+     * @return mensaje indicando el estado de la ejecucion del algoritmo.
      */
     public String decrypt(String message) {
-        String word = "No se encontraron coincidencias";        
+        String result = "";
+        int position = 0;
+        
         logger.init(LOG_FILE);
 
         for (int i = 0; i <= ALPHABET_LENGTH; i++) {
-            String result = algorithm.decode(String.valueOf(i), message);
-            logger.log(i + " - " + result);
+            String decoded = algorithm.decode(String.valueOf(i), message);
+            logger.log(i + " - " + decoded);
 
-            if (filedata.contains(result)) {
-                word = "La palabra encontrada es: [" + result + "] en la posicion " + i;
+            String[] separated = decoded.split(" ");
+
+            for (int j = 0; j < separated.length; j++) {
+                if (filedata.contains(separated[j])) {
+                    result += separated[j] + " ";
+                    position = i;
+                }
             }
         }
 
         logger.close();
-        return word;
+        return "Se encontraron: [" + result.trim() + "] en la posicion: " + position;
     }
 
     /**
